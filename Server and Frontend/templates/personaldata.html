@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>GUI Personal Data</title>
+		 <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+		 <link rel="stylesheet" type="text/css" href="static/css/grid.css">
+		 <link rel="stylesheet" type="text/css" href="static/css/normalize.css">
+		 <link rel="stylesheet" type="text/css" href="static/css/personal.css"> 
+		 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap" rel="stylesheet"
+			  type="text/css">
+		 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+	
+	<body>
+		<div class="row">
+			<h1>People in the room during Emergency</h1>
+		</div>
+		<div class="row">
+			<div class="main">
+				{% for key, value in personList.items() %}
+				{{ key }} : {{ value }}
+				<br>
+				{% endfor %}
+			</div>    
+		</div>
+		
+	</body>
+</html>    

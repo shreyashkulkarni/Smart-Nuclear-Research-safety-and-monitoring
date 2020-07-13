@@ -1,0 +1,150 @@
+<!DOCTYPE html>    
+
+<html lang="en">
+    <head>
+       
+        <link rel="stylesheet" type="text/css" href="static/css/grid.css">
+        <link rel="stylesheet" type="text/css" href="static/css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="static/css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap" rel="stylesheet"
+              type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!--<script src="https://kit.fontawesome.com/yourcode.js"></script> -->
+        <link rel="stylesheet" type="text/css" href="css/grid.css">
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+            <!--High CHART LIVE  -->
+        <script src="http://code.highcharts.com/highcharts.js"></script>
+        <script src="http://code.highcharts.com/highcharts-more.js"></script>
+        <script src="http://code.highcharts.com/modules/exporting.js"></script>
+       
+       
+       
+        <title>GUI</title>
+    </head>
+   
+    <body onload="realTimeClock()">
+       <header>
+       
+        <div class="row">
+                <h1>Smart Nuclear Research Safety and Monitoring System</h1>
+            </div>
+            <div class="row">
+                <div class="col span-1-of-4">
+                    <div class="plan-box">
+                       
+                        <div class="title">
+                             <h2>Room Occupancy</h2>
+                        </div>
+                       
+                        <div>
+                        <p> The Number of occupants in the room: <span id="OccpCnt"></span></p>    
+                        <!---- <p id="OccpCnt"></p> --->
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>    
+                        </div>
+                       
+                    </div>
+                   
+                </div>
+               
+                <div class="col span-1-of-4">
+                    <div class="plan-box">
+                       
+                        <div class="title">
+                            <h2>Lighting Indication</h2>
+                        </div>    
+                       
+                       
+                        <div>
+                         <p>Light Bulb 1: <span id="light1"></span></p>                        
+                         <p>&nbsp;</p>                              
+                         <p>Light Bulb 2: <span id="light2"></span></p>                        
+                         <p>&nbsp;</p>
+                                
+                        </div>
+                       
+                    </div>
+                   
+                   
+               
+                </div>
+               
+                <div class="col span-1-of-4">
+                    <div class="plan-box">
+                       
+                        <div class="title">
+                            <h2>Radiation Value &nbsp;</h2>
+                        </div>
+                       
+                       
+                        <div class="value">
+                            <p>Current Radiation Value: <span id="RadVal"></span></p>
+                            <p>&nbsp;</p>
+                            <p>Radiation Value Graph:</p>
+                            <a class="btn" href="{{url_for('chart')}}" target="_blank">Get the graph</a>
+                            
+                        </div>
+                       
+                    </div>
+                       
+                   
+               
+                </div>
+               
+                <div class="col span-1-of-4">
+                    <div class="plan-box">
+                       
+                        <div class="title">
+                            <h2>Emergency</h2>
+                        </div>
+                       
+                        <div>
+                            <p>Alarms: <span id="alarm"></span></p>
+                            <p>Door: <span id="doors"></span></p>
+                            <p>Emergency Light: <span id="lights"></span></p>
+                            <a class="btn" href="{{url_for('personaldata')}}" target="_blank">Personal Data</a>
+                        </div>
+                       
+                    </div>
+                   
+                   
+                   
+                </div>
+           
+            </div>
+
+            <div class="row">
+                <div class="main-container">
+                    <h3 class="main">Date and Time</h3>
+                            <div id="clock"></div>
+                </div>
+           </div>
+            <div class="row">
+                 <p id="datetime"></p>
+
+                    <script>
+                    var dt = new Date();
+                    document.getElementById("datetime").innerHTML = dt.toLocaleDateString();
+                    </script>    
+            </div>
+                
+            
+
+            <!--- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+
+
+        <!--    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>  -->
+
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+            <script src="static/JS/script.js"></script>
+            <script type="static/JS/time.js"></script>
+            <script src="Javascript/time.js"></script>
+            
+   
+       </header>
+    </body> 

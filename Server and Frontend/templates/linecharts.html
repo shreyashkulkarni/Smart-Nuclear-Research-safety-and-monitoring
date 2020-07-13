@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>GUI Graph Data</title>
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+      <link rel="stylesheet" type="text/css" href="static/css/grid.css">
+      <link rel="stylesheet" type="text/css" href="static/css/normalize.css">
+      <link rel="stylesheet" type="text/css" href="static/css/graphstyle.css">
+      <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap" rel="stylesheet"
+                  type="text/css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <header>
+    <div class="row">
+      <h1>Radiation Data Graph</h1>
+    </div> 
+    <div class="row">
+      <div class="col span-1-of-2">
+        <div class="plan">
+                    
+          <h2>Radiation Value</h2>
+          <canvas id="chart" width="600" height="500"></canvas>
+            <script>
+
+                  // bar chart data
+                  var barData = {
+                    labels : [
+                      {% for item in labels %}
+                        "{{ item }}",
+                      {% endfor %}
+                    ],
+
+                    datasets : [{
+                      fillColor: "rgba(255,0,0,0.1)",
+                      strokeColor: "rgba(255,0,0,1)",
+                      pointColor: "rgba(255,0,0,1)",
+                      pointStrokeColor: "#fff",
+                      pointHighlightFill: "#fff",
+                      pointHighlightStroke: "rgba(255,0,0,1)",
+                      bezierCurve : false,
+                      data : [
+                  {% for item in values %}
+                          {{ item }},
+                        {% endfor %}]
+                      }
+              ]
+                  }
+
+                  Chart.defaults.global.animationSteps = 50;
+                  Chart.defaults.global.tooltipYPadding = 16;
+                  Chart.defaults.global.tooltipCornerRadius = 0;
+                  Chart.defaults.global.tooltipTitleFontStyle = "normal";
+                  Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+                  Chart.defaults.global.animationEasing = "easeOutBounce";
+                  Chart.defaults.global.responsive = false;
+                  Chart.defaults.global.scaleLineColor = "black";
+                  Chart.defaults.global.scaleFontSize = 16;
+
+                  // get bar chart canvas
+                  var mychart = document.getElementById("chart").getContext("2d");
+
+                  steps = 10
+                  max = {{ max }}
+                  // draw bar chart
+                  var LineChartDemo = new Chart(mychart).Line(barData, {
+                    scaleOverride: true,
+                    scaleSteps: steps,
+                    scaleStepWidth: Math.ceil(max / steps),
+                    scaleStartValue: 0,
+                    scaleShowVerticalLines: true,
+                    scaleShowGridLines : true,
+                    barShowStroke : true,
+                    scaleShowLabels: true,
+                    bezierCurve: false,
+                  });
+
+                </script>
+            
+        </div>    
+      </div>
+      <div class="col span-1-of-2">
+         <div class="plan">
+          <h2>Average Radiation value per day</h2>
+            <canvas id="chart2" width="600" height="500"></canvas>
+              <script>
+                // bar chart data
+                var barData = {
+                  labels : [
+                    {% for item in labels2_radiation %}
+                     "{{ item }}",
+                    {% endfor %}
+            ],
+
+                  datasets : [{
+                    fillColor: "rgba(255,0,0,0.1)",
+                    strokeColor: "rgba(255,0,0,1)",
+                    pointColor: "rgba(255,0,0,1)",
+                    data : [
+                      {% for item in values2_radiation %}
+                         "{{ item }}",
+                        {% endfor %}
+                ]
+                    }
+                  ]
+                }
+
+               // get bar chart canvas
+               var mychart2 = document.getElementById("chart2").getContext("2d");
+
+                 steps = 10
+                 max = {{max}}
+
+               // draw bar chart
+               new Chart(mychart2).Bar(barData, {
+                 scaleOverride: true,
+                 scaleSteps: steps,
+                 scaleStepWidth: Math.ceil(max / steps),
+                 scaleStartValue: 0,
+                 scaleShowVerticalLines: true,
+                 scaleShowGridLines : true,
+                 barShowStroke : true,
+                 scaleShowLabels: true
+                 }
+               );
+
+              </script>
+
+            </div>
+        
+      </div>
+
+   </div> 
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+  </header>
+</body>
+</html>
