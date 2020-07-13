@@ -1,0 +1,53 @@
+(define (domain nuclear)
+    (:predicates
+      (light ?l)
+      (door ?d)
+      (turned ?l)
+      (open ?d)
+      (UI ?u)
+	  (ON ?u)
+	  (user ?k)
+	  (buzzer ?b)
+	  (buzz ?b)
+    )
+    (:action turn-on-led
+      :parameters (?l ?d)
+      :precondition (and (light ?l) (not(turned ?l))(not(open ?d)))
+      :effect (turned ?l)
+    )
+    (:action turn-off-light
+      :parameters (?l)
+      :precondition (and (light ?l) (turned ?l))
+      :effect (not (turned ?l))
+    )
+    (:action door-closed
+      :parameters (?d ?l)
+      :precondition (and (door ?d) (open ?d)(light ?l)(not(turned?l)))
+      :effect (not (open ?d))
+    )
+    (:action door-open
+      :parameters (?d  ?l)
+      :precondition (and (door ?d) (light ?l)(turned ?l)(not (open ?d)))
+      :effect (open ?d)
+    )
+    (:action UI-ON
+      :parameters (?u ?l)
+      :precondition (and (UI ?u)(not(ON ?u))(light ?l)(turned ?l))
+      :effect (ON ?u)
+    )
+    (:action UI-OFF
+      :parameters (?u ?l)
+      :precondition (and (UI ?u)(ON ?u)(light ?l) (not(turned ?l)))
+      :effect (not (ON ?u))
+    )
+	(:action buzzer-ON
+      :parameters (?b ?d ?l)
+      :precondition (and (buzzer ?b)(not(buzz ?b)) (light ?l)(turned ?l)(door ?d)(open ?d))
+      :effect (buzz ?b)
+    )
+	(:action buzzer-off
+      :parameters (?b ?d ?l)
+      :precondition (and (buzzer ?b)(buzz ?b) (light ?l)(not(turned ?l))(door ?d)(not(open ?d)))
+      :effect (not(buzz ?b))
+    )
+)
