@@ -55,6 +55,7 @@ orangeLedActuate = 0
 doorActuate = 0
 buzzerActuate = 0
 uiActuate = 0
+greenLed = 1
 emergencyLights = 'OFF'
 alarm = 'OFF'
 door = 'CLOSED'
@@ -293,12 +294,13 @@ def mqttDataPublish():
 		if connflag == True:
 
 			if RadVal:
-				global flaghigh, flagmid, emergencyLedActuate, doorActuate, uiActuate, buzzerActuate, orangeLedActuate
+				global flaghigh, flagmid, emergencyLedActuate, doorActuate, uiActuate, buzzerActuate, orangeLedActuate, greenLed
 				radiationLevel = int(RadVal)
 
 				#Invoke the Planner.py for high level of radiation and call parsePlannerHighFile()
 				if (radiationLevel >= 1200):
 					flaghigh = flaghigh + 1
+					greenLed = 0
 					if flaghigh == 1:
 						myCmd = 'python Planner.py highcasedomain.pddl highcaseproblem.pddl highout.txt'
 						os.system(myCmd)
@@ -306,6 +308,7 @@ def mqttDataPublish():
 				#Invoke Planner.py for mid level of radiation and call parsePlannerMidFile()
 				elif (radiationLevel >= 200 and radiationLevel < 1001):
 					flagmid = flagmid + 1
+					greenLed = 0
 					if flagmid == 1:
 						myCmd = 'python Planner.py midcasedomain.pddl midcaseproblem.pddl midout.txt'
 						os.system(myCmd)
@@ -315,6 +318,7 @@ def mqttDataPublish():
 					doorActuate = 0
 					uiActuate = 0
 					flaghigh = 0
+					buzzerActuate = 0
 				else:
 					flaghigh = 0
 					flagmid = 0
@@ -323,6 +327,7 @@ def mqttDataPublish():
 					uiActuate = 0
 					orangeLedActuate = 0
 					buzzerActuate = 0
+					greenLed = 1
 
 				setEmergencyData()
 
@@ -331,7 +336,8 @@ def mqttDataPublish():
 						"doorActuate": doorActuate,
 						"orangeLedActuate": orangeLedActuate,
 						"uiActuate": uiActuate,
-						"buzzerActuate": buzzerActuate})
+						"buzzerActuate": buzzerActuate,
+						"greenLed": greenLed})
 			receiver.publish(mqtt_topic_pub, pubData,0)
 			print ("Data published back: {}".format(pubData))
 			time.sleep(0.5)
